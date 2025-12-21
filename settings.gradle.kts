@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Device Info"
 include(":app")
+include(":hidden-api")

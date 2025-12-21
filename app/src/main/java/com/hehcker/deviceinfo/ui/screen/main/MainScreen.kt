@@ -1,0 +1,127 @@
+package com.hehcker.deviceinfo.ui.screen.main
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.PrimaryScrollableTabRow
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.hehcker.deviceinfo.R
+import com.hehcker.deviceinfo.ui.component.InfoListItem
+import com.hehcker.deviceinfo.ui.screen.data.DeviceScreen
+import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MainScreen(navController: NavController) {
+    val tabs = listOf(
+        "Device", "Sample"
+    )
+
+    val pagerState = rememberPagerState(pageCount = { tabs.size })
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        topBar = {
+            Column {
+                CenterAlignedTopAppBar(
+                    title = { Text("Device Info") },
+                    actions = {
+                        IconButton(onClick = { navController.navigate("settings") }) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_settings),
+                                contentDescription = "Settings"
+                            )
+                        }
+                    },
+                    colors = topBarColors
+                )
+
+                PrimaryScrollableTabRow(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                    selectedTabIndex = pagerState.currentPage,
+                    edgePadding = 0.dp
+                ) {
+                    tabs.forEachIndexed { index, title ->
+                        Tab(
+                            selected = pagerState.currentPage == index,
+                            onClick = {
+                                coroutineScope.launch {
+                                    pagerState.animateScrollToPage(index)
+                                }
+                            },
+                            text = { Text(text = title) }
+                        )
+                    }
+                }
+
+            }
+        }
+    ) { innerPadding ->
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) { pageIndex ->
+            when (pageIndex) {
+                0 -> DeviceScreen()
+                1 -> SampleScreen()
+                else -> SampleScreen()
+            }
+        }
+    }
+}
+
+@Composable
+fun SampleScreen() {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        modifier = Modifier
+            .background(topBarColors.containerColor)
+            .padding(horizontal = 16.dp)
+            .padding(top = 16.dp)
+            .fillMaxSize()
+    ) {
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                InfoListItem(
+                    headlineContent = { Text(text = "This") },
+                    supportingContent = { Text(text = "is item!!") },
+                    items = 2, index = 0
+                )
+                InfoListItem(
+                    headlineContent = { Text(text = "and") },
+                    supportingContent = { Text(text = "another one") },
+                    items = 2, index = 1
+                )
+            }
+        }
+    }
+}
