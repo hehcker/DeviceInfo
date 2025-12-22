@@ -60,7 +60,8 @@ fun MainScreen(navController: NavController) {
                             )
                         }
                     },
-                    colors = topBarColors
+                    colors = topBarColors,
+                    scrollBehavior = scrollBehavior
                 )
 
                 PrimaryScrollableTabRow(
