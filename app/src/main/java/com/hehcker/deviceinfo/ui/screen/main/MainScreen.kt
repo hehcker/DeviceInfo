@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import com.hehcker.deviceinfo.R
 import com.hehcker.deviceinfo.ui.component.InfoListItem
 import com.hehcker.deviceinfo.ui.screen.data.DeviceScreen
+import com.hehcker.deviceinfo.ui.screen.data.SystemScreen
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MainScreen(navController: NavController) {
     val tabs = listOf(
-        "Device", "Sample"
+        "Device", "System", "Sample"
     )
 
     val pagerState = rememberPagerState(pageCount = { tabs.size })
@@ -93,7 +94,7 @@ fun MainScreen(navController: NavController) {
         ) { pageIndex ->
             when (pageIndex) {
                 0 -> DeviceScreen()
-                1 -> SampleScreen()
+                1 -> SystemScreen()
                 else -> SampleScreen()
             }
         }
