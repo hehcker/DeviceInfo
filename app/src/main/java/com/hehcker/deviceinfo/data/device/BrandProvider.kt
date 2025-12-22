@@ -11,10 +11,16 @@ object BrandProvider {
             "xiaomi" -> return when (brand) {
                 "redmi" -> R.drawable.ic_redmi
                 "poco" -> R.drawable.ic_poco
-
-                // to be filled
                 else -> R.drawable.ic_xiaomi
             }
+            "samsung" -> R.drawable.ic_samsung
+            "honor" -> R.drawable.ic_honor
+            "huawei" -> R.drawable.ic_huawei
+            "oneplus" -> R.drawable.ic_oneplus
+            "realme" -> R.drawable.ic_realme
+            "oppo" -> R.drawable.ic_oppo
+
+            // to be filled
             else -> R.drawable.ic_android
         }
     }
