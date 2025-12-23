@@ -35,7 +35,7 @@ import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.topListItemShape
 fun SystemScreen(
     viewModel: SystemViewModel = viewModel(),
 ) {
-    val details = viewModel.systemDetails
+    val details = viewModel.uiItems
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = Modifier
@@ -67,7 +67,7 @@ fun SystemScreen(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     Text(
-                        text = "Android " + viewModel.androidVersion,
+                        text = "Android " + viewModel.systemInfo.androidVersion,
                         style = typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )

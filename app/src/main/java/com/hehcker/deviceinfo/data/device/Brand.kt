@@ -3,7 +3,7 @@ package com.hehcker.deviceinfo.data.device
 import android.os.Build
 import com.hehcker.deviceinfo.R
 
-object BrandProvider {
+object Brand {
     fun getBrandIcon(): Int {
         val manufacturer = Build.MANUFACTURER.lowercase()
         val brand = Build.BRAND.lowercase()

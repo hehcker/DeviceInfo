@@ -35,7 +35,7 @@ import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.topListItemShape
 fun DeviceScreen(
     viewModel: DeviceViewModel = viewModel()
 ) {
-    val details = viewModel.deviceDetails
+    val details = viewModel.uiItems
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = Modifier
@@ -56,10 +56,10 @@ fun DeviceScreen(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    if (viewModel.brandIconRes != 0) {
+                    if (viewModel.deviceInfo.brandIconRes != 0) {
                         Image(
                             painterResource(
-                                id = viewModel.brandIconRes),
+                                id = viewModel.deviceInfo.brandIconRes),
                                 null,
                                 modifier = Modifier
                                     .height(48.dp)
@@ -68,7 +68,9 @@ fun DeviceScreen(
                         Spacer(modifier = Modifier.width(12.dp))
                     }
                     Text(
-                        text = viewModel.modelName,
+                        text = viewModel.deviceInfo.marketingName
+                            ?.takeIf { it.isNotBlank() }
+                            ?: viewModel.deviceInfo.model,
                         style = typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )

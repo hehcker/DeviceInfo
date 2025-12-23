@@ -5,8 +5,7 @@ import android.os.Build
 import android.os.SystemProperties
 import android.provider.Settings
 
-object ModelProvider {
-
+object Model {
     fun getMarketingName(context: Context): String? {
         val brand = Build.BRAND.lowercase()
 
@@ -28,7 +27,6 @@ object ModelProvider {
     }
 
     private fun getGenericFallback(): String? {
-
         val genericProperties = listOf(
             "ro.product.marketname",
             "ro.product.display",
@@ -48,6 +46,7 @@ object ModelProvider {
         return SystemProperties.get("ro.product.marketname")
             .takeIf { it.isNotBlank() }
     }
+
     private fun getSonyName(): String? {
         return SystemProperties.get("ro.semc.product.name")
             .takeIf { it.isNotBlank() }
@@ -70,7 +69,6 @@ object ModelProvider {
             .takeIf { it.isNotBlank() } ?:
             SystemProperties.get("ro.vivo.product.release.name")
             .takeIf { it.isNotBlank() }
-
     }
 
     private fun getSamsungName(context: Context): String? {
