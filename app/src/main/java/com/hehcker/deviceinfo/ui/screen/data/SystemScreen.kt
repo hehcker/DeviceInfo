@@ -58,7 +58,8 @@ fun SystemScreen(
                 ) {
                     Image(
                         painterResource(
-                            id = R.drawable.ic_android),
+                            id = R.drawable.ic_android
+                        ),
                         null,
                         modifier = Modifier
                             .height(48.dp)
@@ -77,8 +78,18 @@ fun SystemScreen(
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->
                 InfoListItem(
-                    headlineContent = { Text(text = item.label) },
-                    supportingContent = { Text(text = item.value) },
+                    headlineContent = {
+                        Text(
+                            text = item.label,
+                            style = typography.titleMedium
+                        )
+                    },
+                    supportingContent = {
+                        Text(
+                            text = item.value,
+                            style = typography.bodyMedium
+                        )
+                    },
                     colors = listItemColors,
                     items = details.size + 1,
                     index = index + 1

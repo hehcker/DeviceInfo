@@ -4,7 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -59,11 +58,12 @@ fun DeviceScreen(
                     if (viewModel.deviceInfo.brandIconRes != 0) {
                         Image(
                             painterResource(
-                                id = viewModel.deviceInfo.brandIconRes),
-                                null,
-                                modifier = Modifier
-                                    .height(48.dp)
-                                    .clip(middleListItemShape)
+                                id = viewModel.deviceInfo.brandIconRes
+                            ),
+                            null,
+                            modifier = Modifier
+                                .height(48.dp)
+                                .clip(middleListItemShape)
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                     }
@@ -80,8 +80,18 @@ fun DeviceScreen(
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->
                 InfoListItem(
-                    headlineContent = { Text(text = item.label) },
-                    supportingContent = { Text(text = item.value) },
+                    headlineContent = {
+                        Text(
+                            text = item.label,
+                            style = typography.titleMedium
+                        )
+                    },
+                    supportingContent = {
+                        Text(
+                            text = item.value,
+                            style = typography.bodyMedium
+                        )
+                    },
                     colors = listItemColors,
                     items = details.size + 1,
                     index = index + 1 // because of 'card' above
