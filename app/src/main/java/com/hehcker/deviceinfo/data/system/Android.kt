@@ -1,5 +1,6 @@
 package com.hehcker.deviceinfo.data.system
 
+import android.content.Context
 import android.os.Build
 import android.os.SystemClock
 import android.os.SystemProperties
@@ -48,6 +49,14 @@ object Android {
             }
         }.getOrNull()
 
+
+    fun getSystemFeatures(context: Context): List<String> {
+        val packageManager = context.packageManager
+        return packageManager.systemAvailableFeatures
+            .filter { it.name != null }
+            .map { it.name!! }
+            .sorted()
+    }
 
     fun getUptime(): String {
         val seconds = SystemClock.elapsedRealtime() / 1000

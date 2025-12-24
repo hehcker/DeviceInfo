@@ -12,10 +12,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,7 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.R
+import com.hehcker.deviceinfo.ui.component.ClickableListItem
 import com.hehcker.deviceinfo.ui.component.InfoListItem
+import com.hehcker.deviceinfo.ui.component.ModalBottomListSheet
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.SystemViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
@@ -36,6 +42,16 @@ fun SystemScreen(
     viewModel: SystemViewModel = viewModel(),
 ) {
     val details = viewModel.uiItems
+    var showFeaturesSheet by remember { mutableStateOf(false) }
+
+    if (showFeaturesSheet) {
+        ModalBottomListSheet(
+            title = "Device Features",
+            list = viewModel.systemInfo.systemFeatures,
+            onDismiss = { showFeaturesSheet = false }
+        )
+    }
+
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(2.dp),
         modifier = Modifier
@@ -77,23 +93,45 @@ fun SystemScreen(
         }
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->
-                InfoListItem(
-                    headlineContent = {
-                        Text(
-                            text = item.label,
-                            style = typography.titleMedium
-                        )
-                    },
-                    supportingContent = {
-                        Text(
-                            text = item.value,
-                            style = typography.bodyMedium
-                        )
-                    },
-                    colors = listItemColors,
-                    items = details.size + 1,
-                    index = index + 1
-                )
+                if (item.label == "Device Features") { // i dont know how to do it better now
+                    ClickableListItem(
+                        headlineContent = {
+                            Text(
+                                text = item.label,
+                                style = typography.titleMedium
+                            )
+                        },
+                        supportingContent = {
+                            Text(
+                                text = item.value,
+                                style = typography.bodyMedium
+                            )
+                        },
+                        items = details.size + 1,
+                        index = index + 1,
+                        onClick = {
+                            showFeaturesSheet = true
+                        }
+                    )
+                } else {
+                    InfoListItem(
+                        headlineContent = {
+                            Text(
+                                text = item.label,
+                                style = typography.titleMedium
+                            )
+                        },
+                        supportingContent = {
+                            Text(
+                                text = item.value,
+                                style = typography.bodyMedium
+                            )
+                        },
+                        colors = listItemColors,
+                        items = details.size + 1,
+                        index = index + 1
+                    )
+                }
             }
         }
     }

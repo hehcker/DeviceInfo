@@ -11,6 +11,7 @@ data class SystemInfo(
     val buildType: String,
     val buildDate: String?,
     val fingerprint: String,
+    val systemFeatures: List<String>,
     val baseband: String?,
     val uptime: String,
     val ssuStatus: String,

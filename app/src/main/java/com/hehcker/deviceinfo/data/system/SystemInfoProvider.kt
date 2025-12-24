@@ -1,10 +1,11 @@
 package com.hehcker.deviceinfo.data.system
 
+import android.content.Context
 import android.os.Build
 import android.os.SystemProperties
 
 object SystemInfoProvider {
-    fun get(): SystemInfo {
+    fun get(context: Context): SystemInfo {
         return SystemInfo(
             androidVersion = Android.getAndroidVersionFromSdk(Build.VERSION.SDK_INT),
             codename = Android.getAndroidCodename(),
@@ -17,6 +18,7 @@ object SystemInfoProvider {
             buildType = Build.TYPE,
             buildDate = SystemProperties.get("ro.build.date"),
             fingerprint = Build.FINGERPRINT,
+            systemFeatures = Android.getSystemFeatures(context),
             baseband = Build.getRadioVersion(),
             uptime = Android.getUptime(),
             ssuStatus = Android.getSSUStatus(),

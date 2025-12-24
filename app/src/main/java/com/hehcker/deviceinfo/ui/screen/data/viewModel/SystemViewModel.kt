@@ -10,7 +10,7 @@ import com.hehcker.deviceinfo.ui.component.addIfValid
 
 class SystemViewModel(app: Application) : AndroidViewModel(app) {
 
-    val systemInfo = SystemInfoProvider.get()
+    val systemInfo = SystemInfoProvider.get(app)
 
     val uiItems = buildList {
         addIfValid("Codename", systemInfo.codename)
@@ -22,6 +22,7 @@ class SystemViewModel(app: Application) : AndroidViewModel(app) {
         addIfValid("Build Type", systemInfo.buildType)
         addIfValid("Build Date", systemInfo.buildDate)
         addIfValid("Fingerprint", systemInfo.fingerprint)
+        addIfValid("Device Features", "${systemInfo.systemFeatures.size} available")
         addIfValid("Baseband", systemInfo.baseband)
         addIfValid("Uptime", systemInfo.uptime)
         addIfValid("Seamless System Updates", systemInfo.ssuStatus)
