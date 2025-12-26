@@ -24,15 +24,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.ui.component.InfoListItem
-import com.hehcker.deviceinfo.ui.screen.data.viewModel.DeviceViewModel
+import com.hehcker.deviceinfo.ui.screen.data.viewModel.DeviceInfoViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.middleListItemShape
 import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.topListItemShape
 
 @Composable
-fun DeviceScreen(
-    viewModel: DeviceViewModel = viewModel()
+fun DeviceInfoScreen(
+    viewModel: DeviceInfoViewModel = viewModel()
 ) {
     val details = viewModel.uiItems
     LazyColumn(

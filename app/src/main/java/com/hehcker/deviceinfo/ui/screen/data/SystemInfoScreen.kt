@@ -12,13 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme.typography
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,15 +27,15 @@ import com.hehcker.deviceinfo.R
 import com.hehcker.deviceinfo.ui.component.ClickableListItem
 import com.hehcker.deviceinfo.ui.component.InfoListItem
 import com.hehcker.deviceinfo.ui.component.ModalBottomListSheet
-import com.hehcker.deviceinfo.ui.screen.data.viewModel.SystemViewModel
+import com.hehcker.deviceinfo.ui.screen.data.viewModel.SystemInfoViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.middleListItemShape
 import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.topListItemShape
 
 @Composable
-fun SystemScreen(
-    viewModel: SystemViewModel = viewModel(),
+fun SystemInfoScreen(
+    viewModel: SystemInfoViewModel = viewModel(),
 ) {
     val details = viewModel.uiItems
     var showFeaturesSheet by remember { mutableStateOf(false) }

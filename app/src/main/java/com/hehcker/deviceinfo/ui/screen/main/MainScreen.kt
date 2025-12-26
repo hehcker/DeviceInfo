@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.hehcker.deviceinfo.R
 import com.hehcker.deviceinfo.ui.component.InfoListItem
-import com.hehcker.deviceinfo.ui.screen.data.DeviceScreen
-import com.hehcker.deviceinfo.ui.screen.data.SystemScreen
+import com.hehcker.deviceinfo.ui.screen.data.DeviceInfoScreen
+import com.hehcker.deviceinfo.ui.screen.data.SystemInfoScreen
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 import kotlinx.coroutines.launch
 
@@ -93,8 +93,8 @@ fun MainScreen(navController: NavController) {
                 .padding(innerPadding)
         ) { pageIndex ->
             when (pageIndex) {
-                0 -> DeviceScreen()
-                1 -> SystemScreen()
+                0 -> DeviceInfoScreen()
+                1 -> SystemInfoScreen()
                 else -> SampleScreen()
             }
         }

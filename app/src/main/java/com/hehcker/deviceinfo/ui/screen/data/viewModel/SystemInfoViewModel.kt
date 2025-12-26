@@ -1,14 +1,11 @@
 package com.hehcker.deviceinfo.ui.screen.data.viewModel
 
 import android.app.Application
-import android.os.Build
-import android.os.SystemProperties
 import androidx.lifecycle.AndroidViewModel
 import com.hehcker.deviceinfo.data.system.SystemInfoProvider
-import com.hehcker.deviceinfo.ui.component.InfoItem
 import com.hehcker.deviceinfo.ui.component.addIfValid
 
-class SystemViewModel(app: Application) : AndroidViewModel(app) {
+class SystemInfoViewModel(app: Application) : AndroidViewModel(app) {
 
     val systemInfo = SystemInfoProvider.get(app)
 

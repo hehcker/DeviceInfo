@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.hehcker.deviceinfo.data.device.DeviceInfoProvider
 import com.hehcker.deviceinfo.ui.component.addIfValid
 
-class DeviceViewModel(application: Application) : AndroidViewModel(application) {
+class DeviceInfoViewModel(application: Application) : AndroidViewModel(application) {
     val deviceInfo = DeviceInfoProvider.get(application)
 
     val uiItems = buildList {
