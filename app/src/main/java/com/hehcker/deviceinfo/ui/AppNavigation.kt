@@ -49,7 +49,7 @@ fun AppNavigation() {
             MainScreen(navController = navController)
         }
         composable("settings") {
-            SettingsScreen()
+            SettingsScreen(navController = navController)
         }
     }
 }
