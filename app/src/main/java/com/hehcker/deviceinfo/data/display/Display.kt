@@ -2,6 +2,7 @@ package com.hehcker.deviceinfo.data.display
 
 import android.content.Context
 import android.graphics.Rect
+import android.os.Build
 import android.view.Display
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -87,9 +88,14 @@ object Display {
     }
 
     fun getHdrTypes(display: Display): List<String> {
-        val hdrInts = display.supportedModes
-            .flatMap { it.supportedHdrTypes.asIterable() }
-            .distinct()
+        val hdrInts = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            display.supportedModes
+                .flatMap { it.supportedHdrTypes.asIterable() }
+                .distinct()
+        } else {
+            @Suppress("DEPRECATION")
+            display.hdrCapabilities.supportedHdrTypes.distinct()
+        }
 
         if (hdrInts.isEmpty()) return listOf("Unsupported")
 
