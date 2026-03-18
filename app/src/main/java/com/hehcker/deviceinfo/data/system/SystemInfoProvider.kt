@@ -17,6 +17,7 @@ object SystemInfoProvider {
             build = Build.DISPLAY,
             buildType = Build.TYPE,
             buildDate = SystemProperties.get("ro.build.date"),
+            builder = Android.getBuilder(),
             fingerprint = Build.FINGERPRINT,
             systemFeatures = Android.getSystemFeatures(context),
             baseband = Build.getRadioVersion(),

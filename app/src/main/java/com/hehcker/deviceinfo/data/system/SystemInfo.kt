@@ -10,6 +10,7 @@ data class SystemInfo(
     val build: String,
     val buildType: String,
     val buildDate: String?,
+    val builder: String,
     val fingerprint: String,
     val systemFeatures: List<String>,
     val baseband: String?,

@@ -3,7 +3,7 @@ package com.hehcker.deviceinfo.ui.screen.data.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.hehcker.deviceinfo.data.system.SystemInfoProvider
-import com.hehcker.deviceinfo.ui.component.addIfValid
+import com.hehcker.deviceinfo.ui.component.list.addIfValid
 
 class SystemInfoViewModel(app: Application) : AndroidViewModel(app) {
 
@@ -18,6 +18,7 @@ class SystemInfoViewModel(app: Application) : AndroidViewModel(app) {
         addIfValid("Build", systemInfo.build)
         addIfValid("Build Type", systemInfo.buildType)
         addIfValid("Build Date", systemInfo.buildDate)
+        addIfValid("Builder", systemInfo.builder)
         addIfValid("Fingerprint", systemInfo.fingerprint)
         addIfValid("Device Features", "${systemInfo.systemFeatures.size} available")
         addIfValid("Baseband", systemInfo.baseband)

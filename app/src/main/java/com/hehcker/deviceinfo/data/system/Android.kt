@@ -38,6 +38,10 @@ object Android {
         }
     }
 
+    fun getBuilder(): String {
+        return Build.USER + "@" + Build.HOST
+    }
+
     fun formatSecurityPatch(patch: String?): String? =
         runCatching {
             patch?.let {
