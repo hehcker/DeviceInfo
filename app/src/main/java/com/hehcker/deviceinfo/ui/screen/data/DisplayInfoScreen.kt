@@ -79,18 +79,8 @@ fun DisplayInfoScreen(
                     )
                 } else {
                     InfoListItem(
-                        headlineContent = {
-                            Text(
-                                text = item.label,
-                                style = typography.titleMedium
-                            )
-                        },
-                        supportingContent = {
-                            Text(
-                                text = item.value,
-                                style = typography.bodyMedium
-                            )
-                        },
+                        label = item.label,
+                        value = item.value,
                         colors = listItemColors,
                         items = details.size,
                         index = index

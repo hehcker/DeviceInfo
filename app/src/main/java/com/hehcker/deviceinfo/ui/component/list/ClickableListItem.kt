@@ -7,6 +7,8 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -15,6 +17,35 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
+
+/**
+ * overload that takes a just label and value
+ * instead of composable units
+ */
+@Composable
+fun ClickableListItem(
+    label: String,
+    value: String,
+    onClick: () -> Unit,
+    items: Int,
+    index: Int,
+    modifier: Modifier = Modifier,
+    colors: ListItemColors = listItemColors,
+    tonalElevation: Dp = ListItemDefaults.Elevation,
+    shadowElevation: Dp = ListItemDefaults.Elevation,
+) {
+    ClickableListItem(
+        headlineContent = { Text(text = label, style = typography.titleMedium) },
+        supportingContent = { Text(text = value, style = typography.bodyMedium) },
+        modifier = modifier,
+        onClick = onClick,
+        colors = colors,
+        tonalElevation = tonalElevation,
+        shadowElevation = shadowElevation,
+        items = items,
+        index = index
+    )
+}
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable

@@ -43,18 +43,8 @@ fun DeviceInfoScreen(
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->
                 InfoListItem(
-                    headlineContent = {
-                        Text(
-                            text = item.label,
-                            style = typography.titleMedium
-                        )
-                    },
-                    supportingContent = {
-                        Text(
-                            text = item.value,
-                            style = typography.bodyMedium
-                        )
-                    },
+                    label = item.label,
+                    value = item.value,
                     colors = listItemColors,
                     items = details.size + 1,
                     index = index + 1 // because of 'card' above

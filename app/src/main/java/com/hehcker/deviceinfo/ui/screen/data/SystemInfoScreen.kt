@@ -56,18 +56,8 @@ fun SystemInfoScreen(
             itemsIndexed(details) { index, item ->
                 if (item.isClickable) {
                     ClickableListItem(
-                        headlineContent = {
-                            Text(
-                                text = item.label,
-                                style = typography.titleMedium
-                            )
-                        },
-                        supportingContent = {
-                            Text(
-                                text = item.value,
-                                style = typography.bodyMedium
-                            )
-                        },
+                        label = item.label,
+                        value = item.value,
                         items = details.size + 1,
                         index = index + 1,
                         onClick = {
@@ -76,18 +66,8 @@ fun SystemInfoScreen(
                     )
                 } else {
                     InfoListItem(
-                        headlineContent = {
-                            Text(
-                                text = item.label,
-                                style = typography.titleMedium
-                            )
-                        },
-                        supportingContent = {
-                            Text(
-                                text = item.value,
-                                style = typography.bodyMedium
-                            )
-                        },
+                        label = item.label,
+                        value = item.value,
                         colors = listItemColors,
                         items = details.size + 1,
                         index = index + 1

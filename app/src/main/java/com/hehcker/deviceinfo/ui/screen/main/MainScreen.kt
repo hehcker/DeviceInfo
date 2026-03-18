@@ -124,13 +124,13 @@ fun SampleScreen() {
         item {
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 InfoListItem(
-                    headlineContent = { Text(text = "This") },
-                    supportingContent = { Text(text = "is item!!") },
+                    label = "This",
+                    value = "is item!!",
                     items = 2, index = 0
                 )
                 InfoListItem(
-                    headlineContent = { Text(text = "and") },
-                    supportingContent = { Text(text = "another one") },
+                    label = "and",
+                    value = "another one",
                     items = 2, index = 1
                 )
             }
