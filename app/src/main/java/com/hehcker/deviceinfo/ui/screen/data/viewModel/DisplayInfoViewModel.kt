@@ -16,8 +16,8 @@ class DisplayInfoViewModel(app: Application) : AndroidViewModel(app) {
         addIfValid("Per Pixel Inch", displayInfo.ppi)
         addIfValid("Density", displayInfo.systemDensity)
         addIfValid("Refresh Rate", displayInfo.refreshRate)
-        addIfValid("HDR Types", "${displayInfo.hdrTypes.size} available")
-        addIfValid("Available Modes", "${displayInfo.availableModes.size} available")
+        addIfValid("HDR Types", "${displayInfo.hdrTypes.size} available", isClickable = true)
+        addIfValid("Available Modes", "${displayInfo.availableModes.size} available", isClickable = true)
         addIfValid("Wide Color Gamut", displayInfo.wideColorGamutStatus)
     }
 }

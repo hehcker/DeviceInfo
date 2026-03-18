@@ -20,7 +20,7 @@ class SystemInfoViewModel(app: Application) : AndroidViewModel(app) {
         addIfValid("Build Date", systemInfo.buildDate)
         addIfValid("Builder", systemInfo.builder)
         addIfValid("Fingerprint", systemInfo.fingerprint)
-        addIfValid("Device Features", "${systemInfo.systemFeatures.size} available")
+        addIfValid("Device Features", "${systemInfo.systemFeatures.size} available", isClickable = true)
         addIfValid("Baseband", systemInfo.baseband)
         addIfValid("Uptime", systemInfo.uptime)
         addIfValid("Seamless System Updates", systemInfo.ssuStatus)

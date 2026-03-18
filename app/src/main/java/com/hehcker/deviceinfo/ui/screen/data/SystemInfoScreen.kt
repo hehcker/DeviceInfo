@@ -1,29 +1,21 @@
 package com.hehcker.deviceinfo.ui.screen.data
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.hehcker.deviceinfo.R
 import com.hehcker.deviceinfo.ui.component.header.system.AndroidVersionHeader
 import com.hehcker.deviceinfo.ui.component.list.ClickableListItem
 import com.hehcker.deviceinfo.ui.component.list.InfoListItem
@@ -31,22 +23,22 @@ import com.hehcker.deviceinfo.ui.component.sheet.ModalBottomListSheet
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.SystemInfoViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
-import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.middleListItemShape
-import com.hehcker.deviceinfo.ui.theme.WRShapeDefaults.topListItemShape
 
 @Composable
 fun SystemInfoScreen(
     viewModel: SystemInfoViewModel = viewModel(),
 ) {
     val details = viewModel.uiItems
-    var showFeaturesSheet by remember { mutableStateOf(false) }
+    var showSheet by remember { mutableStateOf<String?>(null) }
 
-    if (showFeaturesSheet) {
-        ModalBottomListSheet(
-            title = "Device Features",
-            list = viewModel.systemInfo.systemFeatures,
-            onDismiss = { showFeaturesSheet = false }
-        )
+    when (showSheet) {
+        "Device Features" -> {
+            ModalBottomListSheet(
+                title = "Device Features",
+                list = viewModel.systemInfo.systemFeatures,
+                onDismiss = { showSheet = null }
+            )
+        }
     }
 
     LazyColumn(
@@ -62,7 +54,7 @@ fun SystemInfoScreen(
         }
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->
-                if (item.label == "Device Features") { // i dont know how to do it better now
+                if (item.isClickable) {
                     ClickableListItem(
                         headlineContent = {
                             Text(
@@ -79,7 +71,7 @@ fun SystemInfoScreen(
                         items = details.size + 1,
                         index = index + 1,
                         onClick = {
-                            showFeaturesSheet = true
+                            showSheet = item.label
                         }
                     )
                 } else {

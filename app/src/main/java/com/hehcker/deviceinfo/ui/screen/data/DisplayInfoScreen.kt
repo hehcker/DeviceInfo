@@ -28,22 +28,23 @@ fun DisplayInfoScreen(
     viewModel: DisplayInfoViewModel = viewModel(),
 ) {
     val details = viewModel.uiItems
-    var showHdrTypesSheet by remember { mutableStateOf(false) }
-    var showModesSheet by remember { mutableStateOf(false) }
+    var showSheet by remember { mutableStateOf<String?>(null) }
 
-    if (showHdrTypesSheet) {
-        ModalBottomListSheet(
-            title = "HDR Types",
-            list = viewModel.displayInfo.hdrTypes,
-            onDismiss = { showHdrTypesSheet = false }
-        )
-    }
-    if (showModesSheet) {
-        ModalBottomListSheet(
-            title = "Available modes",
-            list = viewModel.displayInfo.availableModes,
-            onDismiss = { showModesSheet = false }
-        )
+    when (showSheet) {
+        "HDR Types" -> {
+            ModalBottomListSheet(
+                title = "HDR Types",
+                list = viewModel.displayInfo.hdrTypes,
+                onDismiss = { showSheet = null }
+            )
+        }
+        "Available Modes" -> {
+            ModalBottomListSheet(
+                title = "Available modes",
+                list = viewModel.displayInfo.availableModes,
+                onDismiss = { showSheet = null }
+            )
+        }
     }
 
     LazyColumn(
@@ -56,7 +57,7 @@ fun DisplayInfoScreen(
     ) {
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->
-                if (item.label == "HDR Types") {
+                if (item.isClickable) {
                     ClickableListItem(
                         headlineContent = {
                             Text(
@@ -73,27 +74,7 @@ fun DisplayInfoScreen(
                         items = details.size,
                         index = index,
                         onClick = {
-                            showHdrTypesSheet = true
-                        }
-                    )
-                } else if (item.label == "Available Modes") {
-                    ClickableListItem(
-                        headlineContent = {
-                            Text(
-                                text = item.label,
-                                style = typography.titleMedium
-                            )
-                        },
-                        supportingContent = {
-                            Text(
-                                text = item.value,
-                                style = typography.bodyMedium
-                            )
-                        },
-                        items = details.size,
-                        index = index,
-                        onClick = {
-                            showModesSheet = true
+                            showSheet = item.label
                         }
                     )
                 } else {
