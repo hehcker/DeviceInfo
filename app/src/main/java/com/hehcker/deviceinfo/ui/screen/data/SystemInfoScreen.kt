@@ -82,7 +82,7 @@ fun SystemInfoScreen(
                     Text(
                         text = "Android " + viewModel.systemInfo.androidVersion,
                         style = typography.headlineSmall,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
             }

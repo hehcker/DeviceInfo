@@ -72,7 +72,7 @@ fun DeviceInfoScreen(
                             ?.takeIf { it.isNotBlank() }
                             ?: viewModel.deviceInfo.model,
                         style = typography.headlineSmall,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
             }
