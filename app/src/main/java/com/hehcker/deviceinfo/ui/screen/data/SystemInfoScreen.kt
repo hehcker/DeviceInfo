@@ -24,9 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.R
-import com.hehcker.deviceinfo.ui.component.ClickableListItem
-import com.hehcker.deviceinfo.ui.component.InfoListItem
-import com.hehcker.deviceinfo.ui.component.ModalBottomListSheet
+import com.hehcker.deviceinfo.ui.component.header.system.AndroidVersionHeader
+import com.hehcker.deviceinfo.ui.component.list.ClickableListItem
+import com.hehcker.deviceinfo.ui.component.list.InfoListItem
+import com.hehcker.deviceinfo.ui.component.sheet.ModalBottomListSheet
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.SystemInfoViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
@@ -57,35 +58,7 @@ fun SystemInfoScreen(
             .fillMaxSize()
     ) {
         item {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .clip(topListItemShape)
-                    .fillMaxWidth()
-                    .background(listItemColors.containerColor)
-                    .padding(16.dp),
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painterResource(
-                            id = R.drawable.ic_android
-                        ),
-                        null,
-                        modifier = Modifier
-                            .height(48.dp)
-                            .clip(middleListItemShape)
-                    )
-                    Spacer(modifier = Modifier.width(12.dp))
-
-                    Text(
-                        text = "Android " + viewModel.systemInfo.androidVersion,
-                        style = typography.headlineSmall,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-            }
+            AndroidVersionHeader(viewModel.systemInfo.androidVersion)
         }
         if (details.isNotEmpty()) {
             itemsIndexed(details) { index, item ->

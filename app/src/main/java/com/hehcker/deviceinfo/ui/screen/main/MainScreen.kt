@@ -29,7 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.hehcker.deviceinfo.R
-import com.hehcker.deviceinfo.ui.component.InfoListItem
+import com.hehcker.deviceinfo.ui.component.list.InfoListItem
 import com.hehcker.deviceinfo.ui.screen.data.DeviceInfoScreen
 import com.hehcker.deviceinfo.ui.screen.data.DisplayInfoScreen
 import com.hehcker.deviceinfo.ui.screen.data.SystemInfoScreen

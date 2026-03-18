@@ -16,9 +16,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.hehcker.deviceinfo.ui.component.ClickableListItem
-import com.hehcker.deviceinfo.ui.component.InfoListItem
-import com.hehcker.deviceinfo.ui.component.ModalBottomListSheet
+import com.hehcker.deviceinfo.ui.component.list.ClickableListItem
+import com.hehcker.deviceinfo.ui.component.list.InfoListItem
+import com.hehcker.deviceinfo.ui.component.sheet.ModalBottomListSheet
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.DisplayInfoViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors

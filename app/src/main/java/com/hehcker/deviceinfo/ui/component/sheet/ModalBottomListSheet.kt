@@ -1,4 +1,4 @@
-package com.hehcker.deviceinfo.ui.component
+package com.hehcker.deviceinfo.ui.component.sheet
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn

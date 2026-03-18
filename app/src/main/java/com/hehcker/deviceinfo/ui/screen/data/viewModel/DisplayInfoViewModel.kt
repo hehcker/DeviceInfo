@@ -3,7 +3,7 @@ package com.hehcker.deviceinfo.ui.screen.data.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.hehcker.deviceinfo.data.display.DisplayInfoProvider
-import com.hehcker.deviceinfo.ui.component.addIfValid
+import com.hehcker.deviceinfo.ui.component.list.addIfValid
 
 class DisplayInfoViewModel(app: Application) : AndroidViewModel(app) {
     val displayInfo = DisplayInfoProvider.get(app)

@@ -3,7 +3,7 @@ package com.hehcker.deviceinfo.ui.screen.data.viewModel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.hehcker.deviceinfo.data.device.DeviceInfoProvider
-import com.hehcker.deviceinfo.ui.component.addIfValid
+import com.hehcker.deviceinfo.ui.component.list.addIfValid
 
 class DeviceInfoViewModel(application: Application) : AndroidViewModel(application) {
     val deviceInfo = DeviceInfoProvider.get(application)

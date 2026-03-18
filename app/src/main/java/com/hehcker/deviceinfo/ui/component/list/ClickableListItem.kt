@@ -1,10 +1,14 @@
-package com.hehcker.deviceinfo.ui.component
+package com.hehcker.deviceinfo.ui.component.list
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
@@ -12,8 +16,9 @@ import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun InfoListItem(
+fun ClickableListItem(
     headlineContent: @Composable (() -> Unit),
     modifier: Modifier = Modifier,
     overlineContent: @Composable (() -> Unit)? = null,
@@ -24,8 +29,11 @@ fun InfoListItem(
     tonalElevation: Dp = ListItemDefaults.Elevation,
     shadowElevation: Dp = ListItemDefaults.Elevation,
     items: Int,
-    index: Int
+    index: Int,
+    onClick: () -> Unit
 ) {
+    val interactionSource = remember { MutableInteractionSource() }
+
     val top = (
             if (items == 1 || index == 0) 20.dp
             else 4.dp
@@ -45,6 +53,10 @@ fun InfoListItem(
                     bottomStart = bottom.coerceAtLeast(0.dp),
                     bottomEnd = bottom.coerceAtLeast(0.dp)
                 )
+            )
+            .clickable(
+                onClick = onClick,
+                interactionSource = interactionSource,
             ),
         overlineContent = overlineContent,
         supportingContent = supportingContent,
