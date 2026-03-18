@@ -1,13 +1,13 @@
 [versions]
-agp = "8.13.2"
-kotlin = "2.3.0"
+agp = "9.0.1"
+kotlin = "2.3.20"
 annotation = "1.9.1"
-coreKtx = "1.17.0"
+coreKtx = "1.18.0"
 lifecycleRuntimeKtx = "2.10.0"
-activityCompose = "1.12.2"
-composeBom = "2025.12.01"
-material3 = "1.5.0-alpha11"
-navigationCompose = "2.9.6"
+activityCompose = "1.13.0"
+composeBom = "2026.03.00"
+material3 = "1.5.0-alpha15"
+navigationCompose = "2.9.7"
 material3Adaptive = "1.0.0-alpha06"
 
 [libraries]
