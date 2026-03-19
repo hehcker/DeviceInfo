@@ -20,7 +20,7 @@ object DisplayInfoProvider {
             ratio = Display.getAspectRatio(bounds),
             diagonal = Display.getDiagonal(bounds, context),
             size = Display.getDimensions(bounds, context),
-            ppi = Display.getPpi(context),
+            ppi = Display.getPpi(bounds, context),
             systemDensity = Display.getSystemDensityBucket(context),
             refreshRate = Display.getRefreshRate(display),
             hdrTypes = Display.getHdrTypes(display),

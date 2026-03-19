@@ -63,8 +63,20 @@ object Display {
         return "${df.format(widthCm)} x ${df.format(heightCm)} cm"
     }
 
-    fun getPpi(context: Context): String {
-        return "${context.resources.displayMetrics.densityDpi} dpi"
+    fun getPpi(bounds: Rect, context: Context): String {
+        val metrics = context.resources.displayMetrics
+
+        val widthPx = bounds.width().toDouble()
+        val heightPx = bounds.height().toDouble()
+        val widthInches = widthPx / metrics.xdpi
+        val heightInches = heightPx / metrics.ydpi
+
+        val diagonalPx = sqrt(widthPx.pow(2) + heightPx.pow(2))
+        val diagonalInches = sqrt(widthInches.pow(2) + heightInches.pow(2))
+
+        val ppi = diagonalPx / diagonalInches
+
+        return "${ppi.roundToInt()}"
     }
 
     fun getSystemDensityBucket(context: Context): String {
