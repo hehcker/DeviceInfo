@@ -87,7 +87,7 @@ fun MainScreen(navController: NavController) {
                                     pagerState.animateScrollToPage(index)
                                 }
                             },
-                            text = { Text(text = title) }
+                            text = { Text(text = title, fontWeight = FontWeight.SemiBold) }
                         )
                     }
                 }
