@@ -29,7 +29,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.ui.component.header.DataScreenHeader
 import com.hehcker.deviceinfo.ui.component.header.system.AndroidVersionHeader
-import com.hehcker.deviceinfo.ui.component.list.ClickableListItem
+
 import com.hehcker.deviceinfo.ui.component.list.InfoListItem
 import com.hehcker.deviceinfo.ui.component.sheet.ModalBottomListSheet
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.SystemInfoViewModel
@@ -87,25 +87,17 @@ fun SystemInfoScreen(
             }
             if (details.isNotEmpty()) {
                 itemsIndexed(details) { index, item ->
-                    if (item.isClickable) {
-                        ClickableListItem(
-                            label = item.label,
-                            value = item.value,
-                            items = details.size + 1,
-                            index = index + 1,
-                            onClick = {
-                                showSheet = item.label
-                            }
-                        )
-                    } else {
-                        InfoListItem(
-                            label = item.label,
-                            value = item.value,
-                            colors = listItemColors,
-                            items = details.size + 1,
-                            index = index + 1
-                        )
-                    }
+                    InfoListItem(
+                        label = item.label,
+                        value = item.value,
+                        items = details.size + 1,
+                        index = index + 1,
+                        onClick = if (item.isClickable) {
+                            { showSheet = item.label }
+                        } else {
+                            null
+                        }
+                    )
                 }
             }
             item {

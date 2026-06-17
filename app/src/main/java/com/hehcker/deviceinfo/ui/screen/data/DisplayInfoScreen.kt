@@ -12,9 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -30,11 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.ui.component.header.DataScreenHeader
-import com.hehcker.deviceinfo.ui.component.list.ClickableListItem
 import com.hehcker.deviceinfo.ui.component.list.InfoListItem
 import com.hehcker.deviceinfo.ui.component.sheet.ModalBottomListSheet
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.DisplayInfoViewModel
-import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 
 @Composable
@@ -92,35 +88,17 @@ fun DisplayInfoScreen(
             }
             if (details.isNotEmpty()) {
                 itemsIndexed(details) { index, item ->
-                    if (item.isClickable) {
-                        ClickableListItem(
-                            headlineContent = {
-                                Text(
-                                    text = item.label,
-                                    style = typography.titleMedium
-                                )
-                            },
-                            supportingContent = {
-                                Text(
-                                    text = item.value,
-                                    style = typography.bodyMedium
-                                )
-                            },
-                            items = details.size,
-                            index = index,
-                            onClick = {
-                                showSheet = item.label
-                            }
-                        )
-                    } else {
-                        InfoListItem(
-                            label = item.label,
-                            value = item.value,
-                            colors = listItemColors,
-                            items = details.size,
-                            index = index
-                        )
-                    }
+                    InfoListItem(
+                        label = item.label,
+                        value = item.value,
+                        items = details.size,
+                        index = index,
+                        onClick = if (item.isClickable) {
+                            { showSheet = item.label }
+                        } else {
+                            null
+                        }
+                    )
                 }
             }
             item {

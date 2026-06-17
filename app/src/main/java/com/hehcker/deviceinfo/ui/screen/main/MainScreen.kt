@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.hehcker.deviceinfo.R
 import com.hehcker.deviceinfo.ui.navigation.Screen
 import com.hehcker.deviceinfo.ui.component.icon.CircleIcon
-import com.hehcker.deviceinfo.ui.component.list.ClickableListItem
+import com.hehcker.deviceinfo.ui.component.list.InfoListItem
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +70,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
             contentPadding = innerPadding
         ) {
             item {
-                ClickableListItem(
+                InfoListItem(
                     headlineContent = {
                         Text(
                             text = "Device",
@@ -97,7 +97,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                 )
             }
             item {
-                ClickableListItem(
+                InfoListItem(
                     headlineContent = {
                         Text(
                             text = "System",
@@ -124,7 +124,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                 )
             }
             item {
-                ClickableListItem(
+                InfoListItem(
                     headlineContent = {
                         Text(
                             text = "Display",
@@ -151,7 +151,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                 )
             }
             item {
-                ClickableListItem(
+                InfoListItem(
                     headlineContent = {
                         Text(
                             text = "sample",
