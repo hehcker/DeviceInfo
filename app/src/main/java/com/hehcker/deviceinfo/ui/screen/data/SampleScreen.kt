@@ -4,12 +4,12 @@ package com.hehcker.deviceinfo.ui.screen.data
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -19,36 +19,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.ui.component.header.DataScreenHeader
-import com.hehcker.deviceinfo.ui.component.header.device.DeviceHeader
 import com.hehcker.deviceinfo.ui.component.list.InfoListItem
-import com.hehcker.deviceinfo.ui.screen.data.viewModel.DeviceInfoViewModel
-import com.hehcker.deviceinfo.ui.theme.CustomColors.listItemColors
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 
 @Composable
-fun DeviceInfoScreen(
-    onBack: () -> Unit,
-    viewModel: DeviceInfoViewModel = viewModel(
-        factory = ViewModelProvider.AndroidViewModelFactory.getInstance(
-            LocalContext.current.applicationContext as android.app.Application
-        )
-    )
-) {
-    val details = viewModel.uiItems
-    val deviceInfo = viewModel.deviceInfo
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
+fun SampleScreen(onBack: () -> Unit) {
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
     LaunchedEffect(Unit) { scrollBehavior.state.heightOffset = scrollBehavior.state.heightOffsetLimit }
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             DataScreenHeader(
-                title = "Device",
+                title = ":",
                 onBack = onBack,
                 scrollBehavior = scrollBehavior
             )
@@ -67,20 +53,16 @@ fun DeviceInfoScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                DeviceHeader(
-                    model = deviceInfo.model,
-                    marketingName = deviceInfo.marketingName,
-                    brandIconRes = deviceInfo.brandIconRes
-                )
-            }
-            if (details.isNotEmpty()) {
-                itemsIndexed(details) { index, item ->
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     InfoListItem(
-                        label = item.label,
-                        value = item.value,
-                        colors = listItemColors,
-                        items = details.size + 1,
-                        index = index + 1 // because of 'card' above
+                        label = "This",
+                        value = "is item!!",
+                        items = 2, index = 0
+                    )
+                    InfoListItem(
+                        label = "and",
+                        value = "another one",
+                        items = 2, index = 1
                     )
                 }
             }

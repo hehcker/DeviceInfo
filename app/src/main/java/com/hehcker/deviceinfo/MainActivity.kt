@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import com.hehcker.deviceinfo.ui.AppNavigation
+import com.hehcker.deviceinfo.ui.navigation.AppNavigation
 import com.hehcker.deviceinfo.ui.theme.DeviceInfoTheme
 
 class MainActivity : ComponentActivity() {

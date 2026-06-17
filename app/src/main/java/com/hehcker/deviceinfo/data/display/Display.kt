@@ -106,7 +106,7 @@ object Display {
                 .distinct()
         } else {
             @Suppress("DEPRECATION")
-            display.hdrCapabilities.supportedHdrTypes.distinct()
+            display.hdrCapabilities?.supportedHdrTypes?.distinct() ?: emptyList()
         }
 
         if (hdrInts.isEmpty()) return listOf("Unsupported")

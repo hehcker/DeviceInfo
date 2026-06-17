@@ -21,15 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.hehcker.deviceinfo.R
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun SettingsScreen(navController: NavController) {
+fun SettingsScreen(onBack: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -41,7 +39,7 @@ fun SettingsScreen(navController: NavController) {
                 navigationIcon = {
                     FilledTonalIconButton(
                         modifier = Modifier.padding(start = 8.dp),
-                        onClick = { navController.navigate("main") },
+                        onClick = onBack,
                         colors = IconButtonDefaults.filledTonalIconButtonColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
                         )
