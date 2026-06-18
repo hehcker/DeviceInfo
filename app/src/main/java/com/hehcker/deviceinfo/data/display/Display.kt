@@ -55,7 +55,14 @@ object Display {
 
         val d = gcd(width, height)
 
-        return "${width / d}:${height / d}"
+        val rw = width / d
+        val rh = height / d
+
+        return if (rw <= 30 && rh <= 30) {
+            "$rw:$rh"
+        } else {
+            "%.1f:9".format(width.toFloat() / height * 9)
+        }
     }
 
     fun getDiagonal(display: Display, context: Context): String {
