@@ -17,6 +17,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -24,15 +26,18 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.hehcker.deviceinfo.R
-import com.hehcker.deviceinfo.ui.navigation.Screen
+import com.hehcker.deviceinfo.data.DataRepository
+import com.hehcker.deviceinfo.ui.component.header.main.InspectWarningHeader
 import com.hehcker.deviceinfo.ui.component.icon.CircleIcon
 import com.hehcker.deviceinfo.ui.component.list.InfoListItem
+import com.hehcker.deviceinfo.ui.navigation.Screen
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(onNavigate: (Screen) -> Unit) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val importedDump by DataRepository.importedDump.collectAsState()
 
     Scaffold(
         modifier = Modifier
@@ -43,7 +48,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Device Info",
+                        text = if (importedDump != null) importedDump!!.deviceInfo.model else "Device Info",
                         style = typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -69,6 +74,11 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                 .fillMaxSize(),
             contentPadding = innerPadding
         ) {
+            if (importedDump != null) {
+                item {
+                    InspectWarningHeader()
+                }
+            }
             item {
                 InfoListItem(
                     headlineContent = {
@@ -92,7 +102,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                         )
                     },
                     items = 4,
-                    index = 0,
+                    index = if (importedDump != null) 1 else 0,
                     onClick = { onNavigate(Screen.DeviceInfo) }
                 )
             }

@@ -2,8 +2,8 @@ package com.hehcker.deviceinfo.ui.screen.data.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.hehcker.deviceinfo.data.DataRepository
 import com.hehcker.deviceinfo.data.display.DisplayInfo
-import com.hehcker.deviceinfo.data.display.DisplayInfoProvider
 import com.hehcker.deviceinfo.ui.component.list.addIfValid
 
 data class DisplaySection<T>(
@@ -12,7 +12,7 @@ data class DisplaySection<T>(
 )
 
 class DisplayInfoViewModel(app: Application) : AndroidViewModel(app) {
-    val displayInfos: List<DisplayInfo> = DisplayInfoProvider.getAll(app)
+    val displayInfos: List<DisplayInfo> = DataRepository.getDisplayInfo(app)
 
     val sections = displayInfos.mapIndexed { index, info ->
         val items = buildList {

@@ -70,7 +70,7 @@ fun DeviceInfoScreen(
                 DeviceHeader(
                     model = deviceInfo.model,
                     marketingName = deviceInfo.marketingName,
-                    brandIconRes = deviceInfo.brandIconRes
+                    brandIconRes = viewModel.brandIconRes
                 )
             }
             if (details.isNotEmpty()) {

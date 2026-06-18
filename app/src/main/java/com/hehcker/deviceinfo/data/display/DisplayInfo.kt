@@ -1,5 +1,8 @@
 package com.hehcker.deviceinfo.data.display
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class DisplayInfo(
     val name: String,
     val type: String,

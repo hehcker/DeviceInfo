@@ -13,8 +13,7 @@ object DeviceInfoProvider {
             model = Build.MODEL,
             marketingName = marketingName,
             device = Build.DEVICE,
-            hardware = Build.HARDWARE,
-            brandIconRes = Brand.getBrandIcon()
+            hardware = Build.HARDWARE
         )
     }
 }

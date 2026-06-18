@@ -4,9 +4,12 @@ import android.os.Build
 import com.hehcker.deviceinfo.R
 
 object Brand {
-    fun getBrandIcon(): Int {
-        val manufacturer = Build.MANUFACTURER.lowercase()
-        val brand = Build.BRAND.lowercase()
+    fun getBrandIcon(
+        manufacturer: String = Build.MANUFACTURER,
+        brand: String = Build.BRAND
+    ): Int {
+        val manufacturer = manufacturer.lowercase()
+        val brand = brand.lowercase()
         return when (manufacturer) {
             "xiaomi" -> return when (brand) {
                 "redmi" -> R.drawable.ic_redmi

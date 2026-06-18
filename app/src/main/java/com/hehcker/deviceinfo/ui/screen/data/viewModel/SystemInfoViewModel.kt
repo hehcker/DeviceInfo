@@ -2,12 +2,12 @@ package com.hehcker.deviceinfo.ui.screen.data.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.hehcker.deviceinfo.data.system.SystemInfoProvider
+import com.hehcker.deviceinfo.data.DataRepository
 import com.hehcker.deviceinfo.ui.component.list.addIfValid
 
 class SystemInfoViewModel(app: Application) : AndroidViewModel(app) {
 
-    val systemInfo = SystemInfoProvider.get(app)
+    val systemInfo = DataRepository.getSystemInfo(app)
 
     val uiItems = buildList {
         addIfValid("Codename", systemInfo.codename)

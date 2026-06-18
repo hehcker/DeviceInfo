@@ -1,5 +1,8 @@
 package com.hehcker.deviceinfo.data.system
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SystemInfo(
     val androidVersion: String,
     val codename: String,
