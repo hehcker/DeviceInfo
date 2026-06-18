@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -30,6 +31,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hehcker.deviceinfo.ui.component.header.DataScreenHeader
 import com.hehcker.deviceinfo.ui.component.list.InfoListItem
 import com.hehcker.deviceinfo.ui.component.sheet.ModalBottomListSheet
+import com.hehcker.deviceinfo.ui.component.title.CategoryTitle
 import com.hehcker.deviceinfo.ui.screen.data.viewModel.DisplayInfoViewModel
 import com.hehcker.deviceinfo.ui.theme.CustomColors.topBarColors
 
@@ -42,25 +44,28 @@ fun DisplayInfoScreen(
         )
     ),
 ) {
-    val details = viewModel.uiItems
-    var showSheet by remember { mutableStateOf<String?>(null) }
+    val sections = viewModel.sections
+    var showSheet by remember { mutableStateOf<Pair<Int, String>?>(null) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     LaunchedEffect(Unit) { scrollBehavior.state.heightOffset = scrollBehavior.state.heightOffsetLimit }
 
-    when (showSheet) {
-        "HDR Types" -> {
-            ModalBottomListSheet(
-                title = "HDR Types",
-                list = viewModel.displayInfo.hdrTypes,
-                onDismiss = { showSheet = null }
-            )
-        }
-        "Available Modes" -> {
-            ModalBottomListSheet(
-                title = "Available modes",
-                list = viewModel.displayInfo.availableModes,
-                onDismiss = { showSheet = null }
-            )
+    showSheet?.let { (sectionIndex, label) ->
+        val info = sections[sectionIndex].displayInfo
+        when (label) {
+            "HDR Types" -> {
+                ModalBottomListSheet(
+                    title = "HDR Types",
+                    list = info.hdrTypes,
+                    onDismiss = { showSheet = null }
+                )
+            }
+            "Available Modes" -> {
+                ModalBottomListSheet(
+                    title = "Available modes",
+                    list = info.availableModes,
+                    onDismiss = { showSheet = null }
+                )
+            }
         }
     }
 
@@ -86,19 +91,31 @@ fun DisplayInfoScreen(
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
-            if (details.isNotEmpty()) {
-                itemsIndexed(details) { index, item ->
-                    InfoListItem(
-                        label = item.label,
-                        value = item.value,
-                        items = details.size,
-                        index = index,
-                        onClick = if (item.isClickable) {
-                            { showSheet = item.label }
-                        } else {
-                            null
+            sections.forEachIndexed { sectionIndex, section ->
+                if (section.items.isNotEmpty()) {
+                    if (sections.size > 1) {
+                        item {
+                            CategoryTitle(section.displayInfo.name)
                         }
-                    )
+                    }
+                    itemsIndexed(section.items) { index, item ->
+                        InfoListItem(
+                            label = item.label,
+                            value = item.value,
+                            items = section.items.size,
+                            index = index,
+                            onClick = if (item.isClickable) {
+                                { showSheet = sectionIndex to item.label }
+                            } else {
+                                null
+                            }
+                        )
+                    }
+                    if (sectionIndex != sections.lastIndex) {
+                        item {
+                            Spacer(modifier = Modifier.height(20.dp))
+                        }
+                    }
                 }
             }
             item {

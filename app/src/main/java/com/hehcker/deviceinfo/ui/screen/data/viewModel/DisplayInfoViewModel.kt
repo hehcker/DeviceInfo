@@ -2,22 +2,36 @@ package com.hehcker.deviceinfo.ui.screen.data.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.hehcker.deviceinfo.data.display.DisplayInfo
 import com.hehcker.deviceinfo.data.display.DisplayInfoProvider
 import com.hehcker.deviceinfo.ui.component.list.addIfValid
 
-class DisplayInfoViewModel(app: Application) : AndroidViewModel(app) {
-    val displayInfo = DisplayInfoProvider.get(app)
+data class DisplaySection<T>(
+    val displayInfo: DisplayInfo,
+    val items: List<T>,
+)
 
-    val uiItems = buildList {
-        addIfValid("Resolution", displayInfo.resolution)
-        addIfValid("Ratio", displayInfo.ratio)
-        addIfValid("Diagonal", displayInfo.diagonal)
-        addIfValid("Size", displayInfo.size)
-        addIfValid("Per Pixel Inch", displayInfo.ppi)
-        addIfValid("Density", displayInfo.systemDensity)
-        addIfValid("Refresh Rate", displayInfo.refreshRate)
-        addIfValid("HDR Types", "${displayInfo.hdrTypes.size} available", isClickable = true)
-        addIfValid("Available Modes", "${displayInfo.availableModes.size} available", isClickable = true)
-        addIfValid("Wide Color Gamut", displayInfo.wideColorGamutStatus)
+class DisplayInfoViewModel(app: Application) : AndroidViewModel(app) {
+    val displayInfos: List<DisplayInfo> = DisplayInfoProvider.getAll(app)
+
+    val sections = displayInfos.mapIndexed { index, info ->
+        val items = buildList {
+            addIfValid("Type", info.type)
+            addIfValid("Resolution", info.resolution)
+            addIfValid("Ratio", info.ratio)
+            addIfValid("Diagonal", info.diagonal)
+            addIfValid("Size", info.size)
+            addIfValid("Per Pixel Inch", info.ppi)
+            addIfValid("Density", info.systemDensity)
+            addIfValid("Refresh Rate", info.refreshRate)
+            addIfValid("HDR Types", "${info.hdrTypes.size} available", isClickable = true)
+            addIfValid("Available Modes", "${info.availableModes.size} available", isClickable = true)
+            addIfValid("Wide Color Gamut", info.wideColorGamutStatus)
+        }
+
+        DisplaySection(
+            displayInfo = info,
+            items = items
+        )
     }
 }

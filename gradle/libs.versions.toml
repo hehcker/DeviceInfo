@@ -9,6 +9,7 @@ composeBom = "2026.05.01"
 material3 = "1.5.0-alpha21"
 material3Adaptive = "1.0.0-alpha06"
 navigation3 = "1.2.0-alpha04"
+hiddenapibypass = "6.1"
 
 [libraries]
 androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
@@ -26,6 +27,7 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation3-runtime = { group = "androidx.navigation3", name = "navigation3-runtime", version.ref = "navigation3" }
 androidx-navigation3-ui = { group = "androidx.navigation3", name = "navigation3-ui", version.ref = "navigation3" }
+hiddenapibypass = { module = "org.lsposed.hiddenapibypass:hiddenapibypass", version.ref = "hiddenapibypass" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

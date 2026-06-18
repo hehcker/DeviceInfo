@@ -2,26 +2,31 @@ package com.hehcker.deviceinfo.data.display
 
 import android.content.Context
 import android.hardware.display.DisplayManager
-import android.view.WindowManager
+import android.view.Display as AndroidDisplay
 
 object DisplayInfoProvider {
-    fun get(context: Context): DisplayInfo {
+    fun getAll(context: Context): List<DisplayInfo> {
         val displayManager = context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-        val display = displayManager.getDisplay(android.view.Display.DEFAULT_DISPLAY)
-        context.createDisplayContext(display)
 
-        val windowManager = context.getSystemService(WindowManager::class.java)
-        val windowMetrics = windowManager.currentWindowMetrics
+        return displayManager.displays
+            .sortedBy { it.displayId }
+            .mapIndexedNotNull { index, display ->
+                runCatching { get(context, display, index) }.getOrNull()
+            }
+    }
 
-        val bounds = windowMetrics.bounds
+    private fun get(context: Context, display: AndroidDisplay, index: Int): DisplayInfo {
+        val displayContext = context.createDisplayContext(display)
 
         return DisplayInfo(
-            resolution = Display.getResolution(bounds),
-            ratio = Display.getAspectRatio(bounds),
-            diagonal = Display.getDiagonal(bounds, context),
-            size = Display.getDimensions(bounds, context),
-            ppi = Display.getPpi(bounds, context),
-            systemDensity = Display.getSystemDensityBucket(context),
+            name = Display.getDisplayName(display),
+            type = Display.getDisplayType(display),
+            resolution = Display.getResolution(display),
+            ratio = Display.getAspectRatio(display),
+            diagonal = Display.getDiagonal(display, displayContext),
+            size = Display.getDimensions(display, displayContext),
+            ppi = Display.getPpi(display, displayContext),
+            systemDensity = Display.getSystemDensityBucket(displayContext),
             refreshRate = Display.getRefreshRate(display),
             hdrTypes = Display.getHdrTypes(display),
             availableModes = Display.getAvailableModes(display),

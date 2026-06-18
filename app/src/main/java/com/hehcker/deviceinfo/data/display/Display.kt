@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.view.Display
+import org.lsposed.hiddenapibypass.HiddenApiBypass
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import kotlin.math.pow
@@ -13,48 +14,74 @@ import kotlin.math.sqrt
 object Display {
     private const val INCHES_TO_CM = 2.54
 
-    fun getResolution(bounds: Rect): String {
-        return "${bounds.height()} x ${bounds.width()}"
+    // Display types from sdk
+    private const val TYPE_INTERNAL = 1
+    private const val TYPE_EXTERNAL = 2
+    private const val TYPE_WIFI = 3
+    private const val TYPE_OVERLAY = 4
+    private const val TYPE_VIRTUAL = 5
+
+
+    fun getDisplayName(display: Display): String {
+        return display.name
     }
 
-    fun getAspectRatio(bounds: Rect): String {
-        val height = bounds.height()
-        val width = bounds.width()
-
-        val gcd = (width / 720.0) * 80
-        val a = height / gcd
-        val b = width / gcd
-
-        val formatA = DecimalFormat("#.#")
-        val formatB = DecimalFormat("#.#")
-
-        return if (a > b) {
-            "${formatB.format(b)}:${formatA.format(a)}"
-        } else {
-            "${formatA.format(a)}:${formatB.format(b)}"
+    fun getDisplayType(display: Display): String {
+        return when (HiddenApiBypass.invoke(Display::class.java, display, "getType") as? Int) {
+            TYPE_INTERNAL -> "Internal"
+            TYPE_EXTERNAL -> "External"
+            TYPE_WIFI -> "Wireless"
+            TYPE_OVERLAY -> "Overlay"
+            TYPE_VIRTUAL -> "Virtual"
+            else -> "Unknown"
         }
     }
 
-    fun getDiagonal(bounds: Rect, context: Context): String {
-        val metrics = context.resources.displayMetrics
+    fun getResolution(display: Display): String {
+        val mode = display.mode
+        val height = minOf(mode.physicalWidth, mode.physicalHeight)
+        val width = maxOf(mode.physicalWidth, mode.physicalHeight)
 
-        val widthInches = bounds.width() / metrics.xdpi.toDouble()
-        val heightInches = bounds.height() / metrics.ydpi.toDouble()
+        return "$width x $height"
+    }
+
+    private tailrec fun gcd(a: Int, b: Int): Int =
+        if (b == 0) a else gcd(b, a % b)
+
+    fun getAspectRatio(display: Display): String {
+        val mode = display.mode
+        val height = minOf(mode.physicalWidth, mode.physicalHeight)
+        val width = maxOf(mode.physicalWidth, mode.physicalHeight)
+
+        val d = gcd(width, height)
+
+        return "${width / d}:${height / d}"
+    }
+
+    fun getDiagonal(display: Display, context: Context): String {
+        val metrics = context
+            .createDisplayContext(display)
+            .resources
+            .displayMetrics
+
+        val widthInches = display.mode.physicalWidth.toDouble() / metrics.xdpi
+        val heightInches = display.mode.physicalHeight.toDouble() / metrics.ydpi
 
         val diagonalInches = sqrt(widthInches.pow(2.0) + heightInches.pow(2.0))
 
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
         val sizeInCm = diagonalInches * INCHES_TO_CM
 
-        return "${df.format(diagonalInches)}\" (${df.format(sizeInCm)} cm)"
+        return "%.2f\" (%.2f cm)".format(diagonalInches, sizeInCm)
     }
 
-    fun getDimensions(bounds: Rect, context: Context): String {
-        val metrics = context.resources.displayMetrics
+    fun getDimensions(display: Display, context: Context): String {
+        val metrics = context
+            .createDisplayContext(display)
+            .resources
+            .displayMetrics
 
-        val widthInches = bounds.width() / metrics.xdpi.toDouble()
-        val heightInches = bounds.height() / metrics.ydpi.toDouble()
+        val widthInches = display.mode.physicalWidth.toDouble() / metrics.xdpi
+        val heightInches = display.mode.physicalHeight.toDouble() / metrics.ydpi
 
         val df = DecimalFormat("#.##")
         val widthCm = widthInches * INCHES_TO_CM
@@ -63,11 +90,14 @@ object Display {
         return "${df.format(widthCm)} x ${df.format(heightCm)} cm"
     }
 
-    fun getPpi(bounds: Rect, context: Context): String {
-        val metrics = context.resources.displayMetrics
+    fun getPpi(display: Display, context: Context): String {
+        val metrics = context
+            .createDisplayContext(display)
+            .resources
+            .displayMetrics
 
-        val widthPx = bounds.width().toDouble()
-        val heightPx = bounds.height().toDouble()
+        val widthPx = display.mode.physicalWidth.toDouble()
+        val heightPx = display.mode.physicalHeight.toDouble()
         val widthInches = widthPx / metrics.xdpi
         val heightInches = heightPx / metrics.ydpi
 
