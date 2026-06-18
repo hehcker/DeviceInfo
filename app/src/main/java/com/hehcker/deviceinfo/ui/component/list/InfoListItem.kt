@@ -7,6 +7,7 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +16,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.MaterialTheme.motionScheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -43,7 +45,6 @@ import kotlinx.coroutines.launch
  * instead of composable units
  * has a dropdown menu on long click for copying "label: value" or just "value"
  * @param enableCopyMenu enables dropdown menu
- * @param animateCornersOnPress enables corner rounding on click
  */
 @Composable
 fun InfoListItem(
@@ -56,8 +57,7 @@ fun InfoListItem(
     tonalElevation: Dp = ListItemDefaults.Elevation,
     shadowElevation: Dp = ListItemDefaults.Elevation,
     onClick: (() -> Unit)? = null,
-    enableCopyMenu: Boolean = true,
-    animateCornersOnPress: Boolean = true
+    enableCopyMenu: Boolean = true
 ) {
     val density = LocalDensity.current
     val clipboard = LocalClipboard.current
@@ -88,7 +88,6 @@ fun InfoListItem(
             index = index,
             onClick = onClick,
             isMenuOpen = showMenu,
-            animateCornersOnPress = animateCornersOnPress,
             onLongClick = {
                 if (enableCopyMenu) {
                     showMenu = true
@@ -153,19 +152,25 @@ fun InfoListItem(
     items: Int,
     index: Int,
     isMenuOpen: Boolean = false,
-    animateCornersOnPress: Boolean = false,
     onClick: (() -> Unit)? = null,
     onLongClick: (() -> Unit)? = null
 ) {
     val interactionSource = remember { MutableInteractionSource() }
+    val isHovered by interactionSource.collectIsHoveredAsState()
     val isPressed by interactionSource.collectIsPressedAsState()
-    val shouldAnimate = isMenuOpen || (animateCornersOnPress && isPressed)
+    val shouldAnimate = isMenuOpen || isPressed || isHovered
 
     val topBase = if (items == 1 || index == 0) 20.dp else 4.dp
     val bottomBase = if (items == 1 || index == items - 1) 20.dp else 4.dp
 
-    val top by animateDpAsState(targetValue = if (shouldAnimate) 24.dp else topBase)
-    val bottom by animateDpAsState(targetValue = if (shouldAnimate) 24.dp else bottomBase)
+    val top by animateDpAsState(
+        targetValue = if (shouldAnimate) 24.dp else topBase,
+        animationSpec = motionScheme.fastSpatialSpec()
+    )
+    val bottom by animateDpAsState(
+        targetValue = if (shouldAnimate) 24.dp else bottomBase,
+        animationSpec = motionScheme.fastSpatialSpec()
+    )
 
     val containerColor by animateColorAsState(
         targetValue = if (shouldAnimate) {
