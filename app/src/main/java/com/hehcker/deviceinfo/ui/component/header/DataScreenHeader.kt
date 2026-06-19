@@ -37,7 +37,8 @@ fun DataScreenHeader(
         title = {
             Text(
                 text = title,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(horizontal = 8.dp)
             )
         },
         navigationIcon = {
@@ -54,7 +55,6 @@ fun DataScreenHeader(
                         contentDescription = "Back"
                     )
                 }
-                Spacer(modifier = Modifier.width(8.dp))
             }
         },
         scrollBehavior = scrollBehavior,
