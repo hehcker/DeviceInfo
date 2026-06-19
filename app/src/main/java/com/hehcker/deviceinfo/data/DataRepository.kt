@@ -1,6 +1,8 @@
 package com.hehcker.deviceinfo.data
 
 import android.content.Context
+import com.hehcker.deviceinfo.data.battery.BatteryInfo
+import com.hehcker.deviceinfo.data.battery.BatteryInfoProvider
 import com.hehcker.deviceinfo.data.device.DeviceInfo
 import com.hehcker.deviceinfo.data.device.DeviceInfoProvider
 import com.hehcker.deviceinfo.data.display.DisplayInfo
@@ -33,6 +35,10 @@ object DataRepository {
         return _importedDump.value?.systemInfo ?: SystemInfoProvider.get(context)
     }
 
+    fun getBatteryInfo(context: Context): BatteryInfo {
+        return _importedDump.value?.batteryInfo ?: BatteryInfoProvider.get(context)
+    }
+
     fun importDump(jsonString: String): Boolean {
         return try {
             val parsed = json.decodeFromString<DeviceDump>(jsonString)
@@ -48,7 +54,8 @@ object DataRepository {
         val dump = DeviceDump(
             deviceInfo = DeviceInfoProvider.get(context),
             systemInfo = SystemInfoProvider.get(context),
-            displayInfos = DisplayInfoProvider.getAll(context)
+            displayInfos = DisplayInfoProvider.getAll(context),
+            batteryInfo = BatteryInfoProvider.get(context)
         )
         return json.encodeToString(dump)
     }

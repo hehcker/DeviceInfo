@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDe
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.hehcker.deviceinfo.ui.screen.data.BatteryInfoScreen
 import com.hehcker.deviceinfo.ui.screen.main.MainScreen
 import com.hehcker.deviceinfo.ui.screen.settings.SettingsScreen
 import com.hehcker.deviceinfo.ui.screen.data.DeviceInfoScreen
@@ -74,6 +75,11 @@ fun AppNavigation() {
             }
             entry<Screen.DisplayInfo> {
                 DisplayInfoScreen(
+                    onBack = { backStack.removeLastOrNull() }
+                )
+            }
+            entry<Screen.BatteryInfo> {
+                BatteryInfoScreen(
                     onBack = { backStack.removeLastOrNull() }
                 )
             }

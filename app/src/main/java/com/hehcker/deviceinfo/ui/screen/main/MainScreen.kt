@@ -101,7 +101,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                             colorIndex = 0
                         )
                     },
-                    items = 4,
+                    items = 5,
                     index = if (importedDump != null) 1 else 0,
                     onClick = { onNavigate(Screen.DeviceInfo) }
                 )
@@ -128,7 +128,7 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                             colorIndex = 1
                         )
                     },
-                    items = 4,
+                    items = 5,
                     index = 1,
                     onClick = { onNavigate(Screen.SystemInfo) }
                 )
@@ -155,9 +155,36 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                             colorIndex = 2
                         )
                     },
-                    items = 4,
+                    items = 5,
                     index = 2,
                     onClick = { onNavigate(Screen.DisplayInfo) }
+                )
+            }
+            item {
+                InfoListItem(
+                    headlineContent = {
+                        Text(
+                            text = "Battery",
+                            style = typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    },
+                    supportingContent = {
+                        Text(
+                            text = "Cycles, temperature, and health",
+                            style = typography.bodyMedium
+                        )
+                    },
+                    leadingContent = {
+                        CircleIcon(
+                            icon = ImageVector.vectorResource(R.drawable.ic_battery),
+                            contentDescription = "Battery",
+                            colorIndex = 3
+                        )
+                    },
+                    items = 5,
+                    index = 3,
+                    onClick = { onNavigate(Screen.BatteryInfo) }
                 )
             }
             item {
@@ -182,8 +209,8 @@ fun MainScreen(onNavigate: (Screen) -> Unit) {
                             colorIndex = 9
                         )
                     },
-                    items = 4,
-                    index = 3,
+                    items = 5,
+                    index = 4,
                     onClick = { onNavigate(Screen.Sample) }
                 )
             }

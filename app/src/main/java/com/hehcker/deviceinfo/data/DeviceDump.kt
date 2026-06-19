@@ -1,5 +1,6 @@
 package com.hehcker.deviceinfo.data
 
+import com.hehcker.deviceinfo.data.battery.BatteryInfo
 import com.hehcker.deviceinfo.data.device.DeviceInfo
 import com.hehcker.deviceinfo.data.display.DisplayInfo
 import com.hehcker.deviceinfo.data.system.SystemInfo
@@ -10,5 +11,6 @@ data class DeviceDump(
     val timestamp: Long = System.currentTimeMillis(),
     val deviceInfo: DeviceInfo,
     val systemInfo: SystemInfo,
-    val displayInfos: List<DisplayInfo>
+    val displayInfos: List<DisplayInfo>,
+    val batteryInfo: BatteryInfo
 )

@@ -6,5 +6,6 @@ sealed interface Screen {
     data object DeviceInfo : Screen
     data object SystemInfo : Screen
     data object DisplayInfo : Screen
+    data object BatteryInfo : Screen
     data object Sample : Screen
 }
